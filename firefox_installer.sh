@@ -18,24 +18,24 @@
 # A bash script to install firefox and geckodriver on ubuntu
 
 # Add repository
-if [ -w "/etc/apt/preferences.d/mozillateamppa" ]; then
-    echo "Package: firefox*\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 501" > /etc/apt/preferences.d/mozillateamppa
-else
-    echo "Cannot write to /etc/apt/preferences.d/mozillateamppa. Moving to a writable directory."
-    tmpfile=$(mktemp)
-    echo "Package: firefox*\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 501" > "$tmpfile"
-    mv "$tmpfile" /etc/apt/preferences.d/mozillateamppa
-fi
+#if [ -w "/etc/apt/preferences.d/mozillateamppa" ]; then
+    #echo "Package: firefox*\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 501" > /etc/apt/preferences.d/mozillateamppa
+#else
+    #echo "Cannot write to /etc/apt/preferences.d/mozillateamppa. Moving to a writable directory."
+    #tmpfile=$(mktemp)
+    #echo "Package: firefox*\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 501" > "$tmpfile"
+    #mv "$tmpfile" /etc/apt/preferences.d/mozillateamppa
+#fi
 
 # Update and install
-apt update -y
-apt install -y firefox
+apt-get update -y
+apt-get install -y firefox
 
 # Install geckodriver
 wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz
 tar -xvzf geckodriver-v0.30.0-linux64.tar.gz
-mv geckodriver /usr/local/bin/
-chmod +x /usr/local/bin/geckodriver
+#mv geckodriver /usr/local/bin/
+#chmod +x /usr/local/bin/geckodriver
 
 # Install Python dependencies
-pip install -r requirements.txt
+pip install -r requirement.txt
