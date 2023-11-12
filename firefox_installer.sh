@@ -12,3 +12,5 @@ wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodrive
 tar -xvzf geckodriver-v0.30.0-linux64.tar.gz
 sudo mv geckodriver /usr/local/bin/
 sudo chmod +x /usr/local/bin/geckodriver
+
+pip install -r requirement.txt
