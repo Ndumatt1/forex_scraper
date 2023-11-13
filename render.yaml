@@ -1,17 +1,20 @@
 services:
   - type: web
     name: forex_scraper
-    buildCommand: |
-      # Install dependencies
-      apt-get update -y && \
-      apt-get install -y python3-pip && \
-      pip3 install -r requirements.txt && \
-      apt-get install -y firefox && \
-      apt-get install -y wget && \
-      wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz && \
-      tar -xvzf geckodriver-v0.30.0-linux64.tar.gz && \
-      chmod +x geckodriver && \
-      mv geckodriver /usr/local/bin/
-
-    startCommand: |
-      gunicorn -b 0.0.0.0:80 app:app
+    runtime: docker
+    rootDir: .
+    envVars:
+      - key: MAIL_PASSWORD
+        value: cychheendvijetzy
+      - key: SENDER
+        value: shoppiaonline8@gmail.com
+      - key: RECIPIENT
+        value: "ndubuisimathew8@gmail.com,jamierex@etlgr.com"
+      - key: LOGIN_URL
+        value: https://live-forex-signals.com/en/login
+      - key: USER_PASSWORD
+        value: AnaC1680
+      - key: USER_NAME
+        value: jamierex@etlgr.com
+      - key: HOME_PAGE
+        value: https://live-forex-signals.com/en/
