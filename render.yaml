@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: forex_scraper
+    buildCommand: |
+      # Install dependencies
+      apt-get update -y && \
+      apt-get install -y python3-pip && \
+      pip3 install -r requirements.txt && \
+      apt-get install -y firefox && \
+      apt-get install -y wget && \
+      wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz && \
+      tar -xvzf geckodriver-v0.30.0-linux64.tar.gz && \
+      chmod +x geckodriver && \
+      mv geckodriver /usr/local/bin/
+
+    startCommand: |
+      gunicorn -b 0.0.0.0:80 app:app
