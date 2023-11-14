@@ -1,22 +1,14 @@
-import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from datetime import datetime
-import humanize
+import time
 
 def create_email_body(data):
     body = "Hello,\n\nHere is the latest update on Forex signals:\n\n"
     valid_signals = []
     # Iterate through signals
     for signal in data:
-        # Check if 'posted' key exists
-        if 'posted' in signal:
-            # Parse the 'posted' time using humanize
-            posted_time = humanize.naturaltime(signal['posted'])
-
-            # Check if the signal was posted in the last 2 minutes
-            if 'minutes' in posted_time and int(posted_time.split()[0]) <= 3:
-                valid_signals.append(signal)
+        if signal['timestamp'] >= (time.time() - 60):
+            valid_signals.append(signal)
     if not valid_signals:
         return None
     

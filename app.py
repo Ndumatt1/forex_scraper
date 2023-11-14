@@ -75,8 +75,11 @@ def scraper():
 
                 timeagos = card_body.find('span', class_='timeago')
                 timestamp = timeagos.get('datetime')
+
                 real_date = datetime.utcfromtimestamp(int(timestamp) / 1000)
                 hours_difference = (datetime.utcnow() - real_date)
+
+                data['timestamp'] = int(timestamp) / 1000
 
                 # Extracting and associating titles with corresponding signal values
                 for title, signal_value_text in zip(titles, signal_value_texts):
@@ -85,7 +88,7 @@ def scraper():
                 currency_pairs = card_body.find('div', class_='signal-title')
 
                 currencies = ' '.join([pair.text.strip() for pair in currency_pairs])
-                data['currency_pair'] = currencies   
+                data['currency_pair'] = currencies
                 data['posted'] = humanize.naturaltime(hours_difference)
                 signal_data.append(data)
 
@@ -93,7 +96,7 @@ def scraper():
 
             if email_body is None:
                 print("No current Signal")
-                return jsonify({"status": "failed", "message": "No current Signaal"})
+                return jsonify({"status": "failed", "message": "No current Signal"})
             
             send_mail(email_body)
             return jsonify({'status': 'success', 'message': 'Mail sent successfully!'})
