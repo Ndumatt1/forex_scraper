@@ -9,12 +9,19 @@ from sendmail import send_mail
 from mailbody import create_email_body
 from decouple import config
 from flask_cors import CORS
+import random
 
 
 app = Flask(__name__)
 CORS(app)
 
 
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/91.0.864.59 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Firefox/89.0.2",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
+]
 USER_PASSWORD = config('USER_PASSWORD')
 LOGIN_URL = config('LOGIN_URL')
 USER_NAME = config('USER_NAME')
@@ -30,6 +37,7 @@ def scraper():
 
             firefox_options = webdriver.FirefoxOptions()
             firefox_options.add_argument("--headless")
+            firefox_options.add_argument(f"--user-agent={random.choice(USER_AGENTS)}")
 
             firefox_service = FirefoxService(geckodriver_path)
 
